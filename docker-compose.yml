@@ -1,0 +1,8 @@
+version: "3"
+
+services:
+  notify:
+    build: .
+    container_name: notify
+    ports:
+      - 5000:80
