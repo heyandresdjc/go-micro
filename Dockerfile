@@ -3,11 +3,11 @@ WORKDIR /go/src/app
 COPY . .
 RUN go get -d -v ./...
 RUN go install -v ./...
-RUN CGO_ENABLED=0 GOOS=linux go build main.go
-
+RUN CGO_ENABLED=0 GOOS=linux go build .
+RUN ls
 FROM alpine:latest
 WORKDIR /root/
-COPY --from=builder /go/src/app/main main
+COPY --from=builder /go/src/app/app app
 RUN ls
-EXPOSE 80
-ENTRYPOINT ["./main"]
+EXPOSE 8080
+ENTRYPOINT ["./app"]
