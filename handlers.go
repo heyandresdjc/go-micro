@@ -2,7 +2,7 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
+	"io"
 	"io/ioutil"
 	"net/http"
 )
@@ -13,15 +13,28 @@ func GetAllNotification(w http.ResponseWriter, r *http.Request) {
 
 func CreateNotification(w http.ResponseWriter, r *http.Request) {
 	var newNotification notification
-	reqBody, err := ioutil.ReadAll(r.Body)
+
+	body, err := ioutil.ReadAll(io.LimitReader(r.Body, 1048576))
+
 	if err != nil {
-		fmt.Println(err)
+		panic(err)
 	}
-	fmt.Println(string(reqBody))
-	json.Unmarshal(reqBody, &newNotification)
-	notifications = append(notifications, newNotification)
-	w.WriteHeader(http.StatusCreated)
 
-	json.NewEncoder(w).Encode(newNotification)
+	if err := r.Body.Close(); err != nil {
+		panic(err)
+	}
 
+	// json.Unmarshal(body, &newNotification)
+	if err := json.Unmarshal(body, &newNotification); err != nil {
+		w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+		w.WriteHeader(422) // unprocessable entity
+		if err := json.NewEncoder(w).Encode(err); err != nil {
+			panic(err)
+		}
+	}
+
+	RepoCreateNotifcation(newNotification)
+	if err := json.NewEncoder(w).Encode(newNotification); err != nil {
+		panic(err)
+	}
 }

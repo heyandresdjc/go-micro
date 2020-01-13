@@ -17,3 +17,8 @@ var notifications = Notifications{
 		Body:    "Test Body",
 	},
 }
+
+func RepoCreateNotifcation(noti notification) notification {
+	notifications = append(notifications, noti)
+	return noti
+}

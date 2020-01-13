@@ -32,7 +32,7 @@ func NewRouter() *mux.Router {
 
 var routes = Routes{
 	Route{"Index", "GET", "/", GetAllNotification},
-	Route{"Notify", "POST", "/notify", CreateNotification},
+	Route{"Notify", "POST", "/", CreateNotification},
 }
 
 type Routes []Route

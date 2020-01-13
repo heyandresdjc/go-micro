@@ -3,6 +3,7 @@ version: "3"
 services:
   notify:
     build: .
+    restart: always
     container_name: notify
     ports:
       - 8080:8080
