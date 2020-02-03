@@ -1,8 +1,12 @@
-# Golang Notification
+# Notifi
 
-this is an example end point deisng to send notifications from a relay smtp server service or sendgrids excellent system
+This is an example end point deisng to send notifications from a relay smtp server service or sendgrids excellent system
 
-ths whole system can 
+to be use you need to map it out to a volume
+
+`./path/to/you/dir:/var`
+
+and a file called `.env`
 
 .env file for server relay:
 ```sh
