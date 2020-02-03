@@ -8,6 +8,7 @@ RUN ls
 FROM alpine:latest
 WORKDIR /root/
 COPY --from=builder /go/src/app/app app
+COPY --from=builder /go/src/app/vars vars
 RUN ls
 EXPOSE 8080
 ENTRYPOINT ["./app"]

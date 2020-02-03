@@ -9,14 +9,7 @@ type notification struct {
 
 type Notifications []notification
 
-var notifications = Notifications{
-	{
-		Sender:  "a@a.com",
-		Reciver: "a@a.com",
-		Subject: "Test Subject",
-		Body:    "Test Body",
-	},
-}
+var notifications = Notifications{}
 
 func RepoCreateNotifcation(noti notification) notification {
 	notifications = append(notifications, noti)
